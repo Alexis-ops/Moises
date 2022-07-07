@@ -93,7 +93,7 @@ public class ventana2 extends JFrame {
         
         ActionListener oyente4;
         oyente4 = (ActionEvent e) -> {
-            this.setVisible(false);
+            System.exit(0);
         };
         boton4.addActionListener(oyente4);
         

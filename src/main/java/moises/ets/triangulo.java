@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -24,7 +27,52 @@ public class triangulo extends JFrame{
         setSize(500,500); //tamaño de la ventana
         
         iniciarComponentes3();
+        num(cajaTexto1);
+        num2(cajaTexto2);
+        num3(cajaTexto3);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    private void num(JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+         @Override
+         public void keyTyped(KeyEvent e){
+             char c = e.getKeyChar();
+             if(!Character.isDigit(c) && c!= '.'){
+                 e.consume();
+             }
+             if(c == '.' && cajaTexto1.getText().contains(".")){
+                 e.consume();
+             }
+         }
+        });
+    }
+    private void num2(JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+         @Override
+         public void keyTyped(KeyEvent e){
+             char c = e.getKeyChar();
+             if(!Character.isDigit(c) && c!= '.'){
+                 e.consume();
+             }
+             if(c == '.' && cajaTexto2.getText().contains(".")){
+                 e.consume();
+             }
+         }
+        });
+    }
+    private void num3(JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+         @Override
+         public void keyTyped(KeyEvent e){
+             char c = e.getKeyChar();
+             if(!Character.isDigit(c) && c!= '.'){
+                 e.consume();
+             }
+             if(c == '.' && cajaTexto3.getText().contains(".")){
+                 e.consume();
+             }
+         }
+        });
     }
     private void iniciarComponentes3(){
         
@@ -98,6 +146,7 @@ public class triangulo extends JFrame{
         
         cajaTexto1.setBounds(130, 140, 150, 20);
         panel.add(cajaTexto1);
+        
         cajaTexto2.setBounds(130, 115, 150, 20);
         panel.add(cajaTexto2);
         cajaTexto3.setBounds(130, 90, 150, 20);
@@ -118,15 +167,22 @@ public class triangulo extends JFrame{
             @Override
             public void actionPerformed(ActionEvent ae) {
                 double area, perimetro,lado1,lado2,lado3;
+               
                 lado1=Double.valueOf(cajaTexto1.getText());
                 lado2=Double.valueOf(cajaTexto2.getText());
                 lado3=Double.valueOf(cajaTexto3.getText());
                 perimetro = lado1 + lado2 + lado3;
                 area = Math.sqrt(perimetro*(perimetro-lado1)*(perimetro-lado2)*(perimetro-lado3));
-                etiquetaP.setText(String.valueOf(perimetro));
-                etiquetaA.setText(String.valueOf(area));
-
-            }
+                
+                if(lado1 <= 0 || lado2 <= 0 || lado3 <= 0 ){
+                    JOptionPane.showMessageDialog(null, "Error, no se permiten numero <= 0");
+                }else{
+                   etiquetaP.setText(String.valueOf(perimetro));
+                    etiquetaA.setText(String.valueOf(area));    
+                }
+                 
+             }
+             
         };
         boton1.addActionListener(oyente1);
         

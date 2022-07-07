@@ -4,6 +4,8 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,10 +23,39 @@ public class rectangulo extends JFrame{
     
      public rectangulo(){
         setSize(500,500); //tamaño de la ventana
-        
         iniciarComponentesR();
+        num(cajaTexto1);
+        num2(cajaTexto2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
      }
+     private void num(JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+         @Override
+         public void keyTyped(KeyEvent e){
+             char c = e.getKeyChar();
+             if(!Character.isDigit(c) && c!= '.'){
+                 e.consume();
+             }
+             if(c == '.' && cajaTexto1.getText().contains(".")){
+                 e.consume();
+             }
+         }
+        });
+    }
+    private void num2(JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+         @Override
+         public void keyTyped(KeyEvent e){
+             char c = e.getKeyChar();
+             if(!Character.isDigit(c) && c!= '.'){
+                 e.consume();
+             }
+             if(c == '.' && cajaTexto2.getText().contains(".")){
+                 e.consume();
+             }
+         }
+        });
+    }
      private void iniciarComponentesR(){
         
         colocarPanelesR();
