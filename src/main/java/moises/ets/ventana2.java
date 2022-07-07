@@ -67,14 +67,19 @@ public class ventana2 extends JFrame {
         boton4.setEnabled(true);
         panel.add(boton4);
         
-          ActionListener oyente1;
+        ActionListener oyente1;
         oyente1 = (ActionEvent e) -> {
             triangulo abrir = new triangulo();
             abrir.setVisible(true);
             this.setVisible(false);
         };
         boton1.addActionListener(oyente1);
-
+        
+        ActionListener oyente4;
+        oyente4 = (ActionEvent e) -> {
+            this.setVisible(false);
+        };
+        boton4.addActionListener(oyente4);
         
          
         

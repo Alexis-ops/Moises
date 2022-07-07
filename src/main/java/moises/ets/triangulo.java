@@ -1,6 +1,9 @@
 package moises.ets;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,7 +13,12 @@ import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class triangulo extends JFrame{
-     public JPanel panel;
+    public JPanel panel;
+    public JLabel etiquetaP;
+    public JLabel etiquetaA;
+    private JTextField cajaTexto1;
+    private JTextField cajaTexto2;
+    private JTextField cajaTexto3;
     
     public triangulo(){
         setSize(500,500); //tamaño de la ventana
@@ -38,8 +46,10 @@ public class triangulo extends JFrame{
         JLabel etiqueta4 = new JLabel();
         JLabel etiqueta5 = new JLabel("Perímetro:",SwingConstants.RIGHT);
         JLabel etiqueta6 = new JLabel("Área:",SwingConstants.RIGHT);
-        JLabel etiqueta7 = new JLabel();
-        JLabel etiqueta8 = new JLabel();
+        etiquetaP = new JLabel();
+        etiquetaA = new JLabel();
+        
+        
         
         etiqueta.setText("Triángulo");
         etiqueta.setBounds(200,20,200,50);
@@ -71,8 +81,28 @@ public class triangulo extends JFrame{
         etiqueta6.setBounds(80,200,100,20);
         etiqueta6.setFont(new Font("arial",Font.PLAIN,12));
         panel.add(etiqueta6);
+        
+        //etiquetaP.setText("NOSE QUE HAGO");
+        etiquetaP.setBounds(180,180,100,20);
+        etiquetaP.setFont(new Font("arial",Font.PLAIN,12));
+        panel.add(etiquetaP);
+        
+        etiquetaA.setBounds(180,200,100,20);
+        etiquetaA.setFont(new Font("arial",Font.PLAIN,12));
+        panel.add(etiquetaA);
     }
-    
+    private void colocarCajasTexto1(){
+        cajaTexto1 = new JTextField();
+        cajaTexto2 = new JTextField();
+        cajaTexto3 = new JTextField();
+        
+        cajaTexto1.setBounds(130, 140, 150, 20);
+        panel.add(cajaTexto1);
+        cajaTexto2.setBounds(130, 115, 150, 20);
+        panel.add(cajaTexto2);
+        cajaTexto3.setBounds(130, 90, 150, 20);
+        panel.add(cajaTexto3);
+    }
     private void colocarBotones3(){
         JButton boton1 = new JButton("Calcular");
         boton1.setBounds(100,400,100,40);
@@ -83,17 +113,30 @@ public class triangulo extends JFrame{
         boton2.setBounds(250,400,200,40);
         boton2.setEnabled(true);
         panel.add(boton2);
-    }
-    private void colocarCajasTexto1(){
-        JTextField cajaTexto1 = new JTextField();
-        JTextField cajaTexto2 = new JTextField();
-        JTextField cajaTexto3 = new JTextField();
+        //eventos
+        ActionListener oyente1 = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                double area, perimetro,lado1,lado2,lado3;
+                lado1=Double.valueOf(cajaTexto1.getText());
+                lado2=Double.valueOf(cajaTexto2.getText());
+                lado3=Double.valueOf(cajaTexto3.getText());
+                perimetro = lado1 + lado2 + lado3;
+                area = Math.sqrt(perimetro*(perimetro-lado1)*(perimetro-lado2)*(perimetro-lado3));
+                etiquetaP.setText(String.valueOf(perimetro));
+                etiquetaA.setText(String.valueOf(area));
+
+            }
+        };
+        boton1.addActionListener(oyente1);
         
-        cajaTexto1.setBounds(130, 140, 150, 20);
-        panel.add(cajaTexto1);
-        cajaTexto2.setBounds(130, 115, 150, 20);
-        panel.add(cajaTexto2);
-        cajaTexto3.setBounds(130, 90, 150, 20);
-        panel.add(cajaTexto3);
+        ActionListener oyente2;
+        oyente2 = (ActionEvent e) -> {
+            ventana2 abrir = new ventana2();
+            abrir.setVisible(true);
+            this.setVisible(false);
+        };
+        boton2.addActionListener(oyente2);
     }
+    
 }
